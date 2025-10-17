@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche de Collecte de Données par Centre</title>
     <style>
-        /* Copy the entire <style> block from your original fiche.html */
         body {
             font-family: Arial, sans-serif;
             margin: 10px;
@@ -20,7 +19,10 @@
             padding: 5px;
             border-bottom: 1px solid #ccc;
         }
-        .header .logo-left, .header .logo-right {
+        .header .logo-left {
+            height: 100px;
+        }
+        .header .logo-right {
             height: 100px;
         }
         .header .title {
@@ -28,9 +30,14 @@
             font-size: 12px;
             font-weight: bold;
             flex-grow: 1;
-            padding: 0;
+            padding: 0 px;
         }
-        h1 { display: none; }
+        h1 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: none;
+        }
         h2 {
             color: #333;
             font-size: 14px;
@@ -46,8 +53,12 @@
             padding: 4px;
             text-align: left;
         }
-        th { background-color: #f2f2f2; }
-        .status { margin-bottom: 10px; }
+        th {
+            background-color: #f2f2f2;
+        }
+        .status {
+            margin-bottom: 10px;
+        }
         .status span {
             display: inline-block;
             width: 15px;
@@ -60,7 +71,9 @@
         .integrable-apres { background-color: yellow; }
         .a-collecter { background-color: red; }
         .manquantes { background-color: black; }
-        .contact { margin-top: 10px; }
+        .contact {
+            margin-top: 10px;
+        }
         .header-row {
             display: flex;
             justify-content: space-between;
@@ -78,65 +91,88 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
-            margin-right: 10px;
         }
         .export-button button:hover {
             background-color: #45a049;
         }
         input[type="text"], input[type="checkbox"] {
             transform: scale(0.8);
-            border: none;
-            background-color: #fff;
-            transition: box-shadow 0.3s ease;
+            border: none; /* Remove border */
+            background-color: #fff; /* Clean background */
+            transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
         }
         input[type="text"] {
-            padding: 6px 8px;
-            border-radius: 4px;
+            padding: 6px 8px; /* Adjusted padding for text inputs */
+            border-radius: 4px; /* Rounded corners for background */
             color: #333;
             font-family: 'Arial', sans-serif;
             font-size: 15px;
+             /* Ensure enough width for 50 characters */
         }
         input[type="text"]::placeholder {
             color: #999;
             opacity: 1;
+            text-overflow: ellipsis; /* Ensure placeholder visibility */
         }
         input[type="text"]:focus, input[type="checkbox"]:focus {
-            outline: none;
-            box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 6px rgba(0, 123, 255, 0.4); /* Subtle blue shadow on focus */
         }
         input[type="text"]:hover, input[type="checkbox"]:hover {
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.25); /* Subtle shadow on hover */
         }
         input[type="text"]:disabled, input[type="checkbox"]:disabled {
             background-color: #f5f5f5;
             color: #aaa;
             cursor: not-allowed;
         }
-        @media print {
-            body { margin: 0; padding: 10mm; font-size: 10pt; }
-            .header { page-break-inside: avoid; }
-            .header .logo-left, .header .logo-right { height: 60px; }
-            .header .title { font-size: 10pt; }
-            h1 { display: none; }
-            h2 { font-size: 12pt; }
-            table, .status, .contact, .header-row, .export-button { page-break-inside: avoid; }
-            .export-button { display: none; }
-            @page { size: A4; margin-right: 20mm; margin-left: 15mm; }
+    @media print {
+        body {
+            margin: 0;
+            padding: 10mm;
+            font-size: 10pt;
         }
-    </style>
+        .header {
+            page-break-inside: avoid;
+        }
+        .header .logo-left, .header .logo-right {
+            height: 60px;
+        }
+        .header .title {
+            font-size: 10pt;
+        }
+        h1 {
+            display: none;
+        }
+        h2 {
+            font-size: 12pt;
+        }
+        table, .status, .contact, .header-row, .export-button {
+            page-break-inside: avoid;
+        }
+        .export-button {
+            display: none;
+        }
+        @page {
+            size: A4;
+            margin-right: 20mm;
+            margin-left: 15mm;
+        }
+    }
+</style>
 </head>
 <body>
     <div class="header">
-        <img src="https://github.com/belaid18/gis-audit-fiche/blob/main/butec.png" class="logo-left" alt="SRM RSK Logo">
+        <img src="/SRM_RSK.jpg" class="logo-left" alt="SRM RSK Logo">
         <div class="title">Audit et plan d’action du système d’information géographique - BC N° 3139-25</div>
-        <img src="/butec.png" alt="BUTEC Logo" class="logo-right">
+        <img src="/Butec.png" alt="BUTEC Logo" class="logo-right">
     </div>
     <div class="header-row">
         <p><strong>Nom du centre :</strong> <input type="text" id="centerName" placeholder="............................."></p>
-        <p><strong>Le :</strong> <input type="text" id="date" placeholder="....../......./.........."></p>
+        <p><strong>Le :</strong> <input type="text" placeholder="....../......./.........."></p>
     </div>
     <div>
-        <p><strong>Province :</strong> <input type="text" id="province" placeholder="............................."></p>
+        <p><strong>Province :</strong> <input type="text" placeholder="............................."></p>
     </div>
     <h2>Fiche standardisée pour chaque centre/gérance - Format Excel/Tableau</h2>
 
@@ -149,120 +185,65 @@
         </tr>
         <tr>
             <td><strong>Plans papier</strong></td>
-            <td>
-                <input type="checkbox" id="electricity-paper-oui" value="Oui"> Oui 
-                <input type="checkbox" id="electricity-paper-non" value="Non"> Non
-            </td>
-            <td>
-                <input type="checkbox" id="water-paper-oui" value="Oui"> Oui 
-                <input type="checkbox" id="water-paper-non" value="Non"> Non
-            </td>
-            <td>
-                <input type="checkbox" id="sanitation-paper-oui" value="Oui"> Oui 
-                <input type="checkbox" id="sanitation-paper-non" value="Non"> Non
-            </td>
+            <td><input type="checkbox"> Oui <input type="checkbox"> Non</td>
+            <td><input type="checkbox"> Oui <input type="checkbox"> Non</td>
+            <td><input type="checkbox"> Oui <input type="checkbox"> Non</td>
         </tr>
         <tr>
             <td><strong>Plans numériques</strong></td>
-            <td>
-                <input type="checkbox" id="electricity-digital-autocad" value="AutoCAD"> AutoCAD 
-                <input type="checkbox" id="electricity-digital-pdf" value="PDF"> PDF
-            </td>
-            <td>
-                <input type="checkbox" id="water-digital-autocad" value="AutoCAD"> AutoCAD 
-                <input type="checkbox" id="water-digital-pdf" value="PDF"> PDF
-            </td>
-            <td>
-                <input type="checkbox" id="sanitation-digital-autocad" value="AutoCAD"> AutoCAD 
-                <input type="checkbox" id="sanitation-digital-pdf" value="PDF"> PDF
-            </td>
+            <td><input type="checkbox"> AutoCAD <input type="checkbox"> PDF</td>
+            <td><input type="checkbox"> AutoCAD <input type="checkbox"> PDF</td>
+            <td><input type="checkbox"> AutoCAD <input type="checkbox"> PDF</td>
         </tr>
         <tr>
             <td><strong>Données SIG</strong></td>
-            <td>
-                <input type="checkbox" id="electricity-gis-shapefile" value="Shapefile"> Shapefile 
-                <input type="checkbox" id="electricity-gis-gdb" value="GDB"> GDB
-            </td>
-            <td>
-                <input type="checkbox" id="water-gis-shapefile" value="Shapefile"> Shapefile 
-                <input type="checkbox" id="water-gis-gdb" value="GDB"> GDB
-            </td>
-            <td>
-                <input type="checkbox" id="sanitation-gis-shapefile" value="Shapefile"> Shapefile 
-                <input type="checkbox" id="sanitation-gis-gdb" value="GDB"> GDB
-            </td>
+            <td><input type="checkbox"> Shapefile <input type="checkbox"> GDB</td>
+            <td><input type="checkbox"> Shapefile <input type="checkbox"> GDB</td>
+            <td><input type="checkbox"> Shapefile <input type="checkbox"> GDB</td>
         </tr>
         <tr>
             <td><strong>Attributs critiques</strong></td>
-            <td>
-                <input type="checkbox" id="electricity-attr-localisation" value="Localisation"> Localisation 
-                <input type="checkbox" id="electricity-attr-longueur" value="Longueur"> Longueur 
-                <input type="checkbox" id="electricity-attr-type-cable" value="Type câble"> Type câble 
-                <input type="checkbox" id="electricity-attr-tension" value="Tension"> Tension
-            </td>
-            <td>
-                <input type="checkbox" id="water-attr-localisation" value="Localisation"> Localisation 
-                <input type="checkbox" id="water-attr-longueur" value="Longueur"> Longueur 
-                <input type="checkbox" id="water-attr-diametre" value="Diamètre"> Diamètre 
-                <input type="checkbox" id="water-attr-materiau" value="Matériau"> Matériau
-            </td>
-            <td>
-                <input type="checkbox" id="sanitation-attr-localisation" value="Localisation"> Localisation 
-                <input type="checkbox" id="sanitation-attr-longueur" value="Longueur"> Longueur 
-                <input type="checkbox" id="sanitation-attr-diametre" value="Diamètre"> Diamètre 
-                <input type="checkbox" id="sanitation-attr-type" value="Type"> Type
-            </td>
+            <td><input type="checkbox"> Localisation <input type="checkbox"> Longueur <input type="checkbox"> Type câble <input type="checkbox"> Tension</td>
+            <td><input type="checkbox"> Localisation <input type="checkbox"> Longueur <input type="checkbox"> Diamètre <input type="checkbox"> Matériau</td>
+            <td><input type="checkbox"> Localisation <input type="checkbox"> Longueur <input type="checkbox"> Diamètre <input type="checkbox"> Type</td>
         </tr>
         <tr>
             <td><strong>Année données</strong></td>
-            <td><input type="text" id="electricity-year" placeholder="........"></td>
-            <td><input type="text" id="water-year" placeholder="........"></td>
-            <td><input type="text" id="sanitation-year" placeholder="........"></td>
+            <td><input type="text" placeholder="........"></td>
+            <td><input type="text" placeholder="........"></td>
+            <td><input type="text" placeholder="........"></td>
         </tr>
         <tr>
             <td><strong>Couverture (%)</strong></td>
-            <td><input type="text" id="electricity-coverage" placeholder="........."></td>
-            <td><input type="text" id="water-coverage" placeholder="........."></td>
-            <td><input type="text" id="sanitation-coverage" placeholder="........."></td>
+            <td><input type="text" placeholder="........."></td>
+            <td><input type="text" placeholder="........."></td>
+            <td><input type="text" placeholder="........."></td>
         </tr>
         <tr>
             <td><strong>Qualité estimée</strong></td>
-            <td>
-                <input type="checkbox" id="electricity-quality-bonne" value="Bonne"> Bonne 
-                <input type="checkbox" id="electricity-quality-moyenne" value="Moyenne"> Moyenne 
-                <input type="checkbox" id="electricity-quality-faible" value="Faible"> Faible
-            </td>
-            <td>
-                <input type="checkbox" id="water-quality-bonne" value="Bonne"> Bonne 
-                <input type="checkbox" id="water-quality-moyenne" value="Moyenne"> Moyenne 
-                <input type="checkbox" id="water-quality-faible" value="Faible"> Faible
-            </td>
-            <td>
-                <input type="checkbox" id="sanitation-quality-bonne" value="Bonne"> Bonne 
-                <input type="checkbox" id="sanitation-quality-moyenne" value="Moyenne"> Moyenne 
-                <input type="checkbox" id="sanitation-quality-faible" value="Faible"> Faible
-            </td>
+            <td><input type="checkbox"> Bonne <input type="checkbox"> Moyenne <input type="checkbox"> Faible</td>
+            <td><input type="checkbox"> Bonne <input type="checkbox"> Moyenne <input type="checkbox"> Faible</td>
+            <td><input type="checkbox"> Bonne <input type="checkbox"> Moyenne <input type="checkbox"> Faible</td>
         </tr>
     </table>
 
     <div class="status">
         <h2>STATUT D'INTÉGRABILITÉ :</h2>
-        <p><span class="integrable-direct"></span><strong>Intégrable direct :</strong> <input type="text" id="integrable-direct" placeholder="........ km"></p>
-        <p><span class="integrable-apres"></span><strong>Intégrable après traitement :</strong> <input type="text" id="integrable-apres" placeholder="........ km"></p>
-        <p><span class="a-collecter"></span><strong>Données à collecter :</strong> <input type="text" id="a-collecter" placeholder="........ km"></p>
-        <p><span class="manquantes"></span><strong>Données manquantes :</strong> <input type="text" id="manquantes" placeholder="........ km"></p>
+        <p><span class="integrable-direct"></span><strong>Intégrable direct :</strong> ........ km</p>
+        <p><span class="integrable-apres"></span><strong>Intégrable après traitement :</strong> ........ km</p>
+        <p><span class="a-collecter"></span><strong>Données à collecter :</strong> ........ km</p>
+        <p><span class="manquantes"></span><strong>Données manquantes :</strong> ........ km</p>
     </div>
 
     <div class="contact">
         <h2>CONTACT RÉFÉRENT :</h2>
-        <p><strong>Nom :</strong> <input type="text" id="contact-name" placeholder="............................................................"></p>
-        <p><strong>Tél :</strong> <input type="text" id="contact-tel" placeholder="............................................."></p>
-        <p><strong>Email :</strong> <input type="text" id="contact-email" placeholder="......................................................................." style="min-width: 250px;"></p>
+        <p><strong>Nom :</strong> <input type="text" placeholder="............................................................"></p>
+        <p><strong>Email :</strong> <input type="text" placeholder="......................................................................." style="min-width: 250px;"></p>
+        <p><strong>Email :</strong> <input type="text" placeholder=".......................................................................", style="min-width: 250px;"></p>
     </div>
 
     <div class="export-button">
         <button onclick="exportToPDF()">Exporter en PDF</button>
-        <button onclick="saveToCloud()">Sauvegarder sur Google Drive</button>
     </div>
 
     <script>
@@ -272,85 +253,6 @@
             const filename = `Fiche_${centerName}_${date}.pdf`;
             window.print();
         }
-
-        function saveToCloud() {
-            const formData = {
-                centerName: document.getElementById('centerName').value,
-                date: document.getElementById('date').value,
-                province: document.getElementById('province').value,
-                electricityPaperPlans: getCheckedValue('electricity-paper'),
-                electricityDigital: getCheckedValues('electricity-digital'),
-                electricityGIS: getCheckedValues('electricity-gis'),
-                electricityAttributes: getCheckedValues('electricity-attr'),
-                electricityYear: document.getElementById('electricity-year').value,
-                electricityCoverage: document.getElementById('electricity-coverage').value,
-                electricityQuality: getCheckedValue('electricity-quality'),
-                waterPaperPlans: getCheckedValue('water-paper'),
-                waterDigital: getCheckedValues('water-digital'),
-                waterGIS: getCheckedValues('water-gis'),
-                waterAttributes: getCheckedValues('water-attr'),
-                waterYear: document.getElementById('water-year').value,
-                waterCoverage: document.getElementById('water-coverage').value,
-                waterQuality: getCheckedValue('water-quality'),
-                sanitationPaperPlans: getCheckedValue('sanitation-paper'),
-                sanitationDigital: getCheckedValues('sanitation-digital'),
-                sanitationGIS: getCheckedValues('sanitation-gis'),
-                sanitationAttributes: getCheckedValues('sanitation-attr'),
-                sanitationYear: document.getElementById('sanitation-year').value,
-                sanitationCoverage: document.getElementById('sanitation-coverage').value,
-                sanitationQuality: getCheckedValue('sanitation-quality'),
-                integrableDirect: document.getElementById('integrable-direct').value,
-                integrableApres: document.getElementById('integrable-apres').value,
-                aCollecter: document.getElementById('a-collecter').value,
-                manquantes: document.getElementById('manquantes').value,
-                contactName: document.getElementById('contact-name').value,
-                contactTel: document.getElementById('contact-tel').value,
-                contactEmail: document.getElementById('contact-email').value
-            };
-
-            document.getElementById('loading')?.classList.remove('hidden');
-            fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            })
-            .then(() => {
-                alert('Données sauvegardées sur Google Drive !');
-                document.getElementById('loading')?.classList.add('hidden');
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Erreur lors de la sauvegarde.');
-                document.getElementById('loading')?.classList.add('hidden');
-            });
-        }
-
-        function getCheckedValues(baseId) {
-            const checkboxes = document.querySelectorAll(`input[id^="${baseId}"]:checked`);
-            return Array.from(checkboxes).map(cb => cb.value).join(', ');
-        }
-
-        function getCheckedValue(baseId) {
-            const checked = document.querySelector(`input[id^="${baseId}"]:checked`);
-            return checked ? checked.value : '';
-        }
-
-        // Ensure mutually exclusive checkboxes (e.g., Oui/Non, Quality)
-        ['electricity-paper', 'water-paper', 'sanitation-paper', 'electricity-quality', 'water-quality', 'sanitation-quality'].forEach(group => {
-            document.querySelectorAll(`input[id^="${group}"]`).forEach(cb => {
-                cb.addEventListener('change', () => {
-                    document.querySelectorAll(`input[id^="${group}"]`).forEach(other => {
-                        if (other !== cb) other.checked = false;
-                    });
-                });
-            });
-        });
     </script>
 </body>
 </html>
-
-
-
-
-
