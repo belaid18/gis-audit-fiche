@@ -5,8 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche de Collecte de Données par Centre</title>
     <style>
-        /* Existing CSS remains unchanged */
-        /* ... (copy the entire <style> block from your original fiche.html) ... */
+        /* Copy the entire <style> block from your original fiche.html */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .header .logo-left, .header .logo-right {
+            height: 100px;
+        }
+        .header .title {
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            flex-grow: 1;
+            padding: 0;
+        }
+        h1 { display: none; }
+        h2 {
+            color: #333;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 4px;
+            text-align: left;
+        }
+        th { background-color: #f2f2f2; }
+        .status { margin-bottom: 10px; }
+        .status span {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .integrable-direct { background-color: blue; }
+        .integrable-apres { background-color: yellow; }
+        .a-collecter { background-color: red; }
+        .manquantes { background-color: black; }
+        .contact { margin-top: 10px; }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .export-button {
+            margin-top: 10px;
+        }
+        .export-button button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .export-button button:hover {
+            background-color: #45a049;
+        }
+        input[type="text"], input[type="checkbox"] {
+            transform: scale(0.8);
+            border: none;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+        }
+        input[type="text"] {
+            padding: 6px 8px;
+            border-radius: 4px;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            font-size: 15px;
+        }
+        input[type="text"]::placeholder {
+            color: #999;
+            opacity: 1;
+        }
+        input[type="text"]:focus, input[type="checkbox"]:focus {
+            outline: none;
+            box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+        }
+        input[type="text"]:hover, input[type="checkbox"]:hover {
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+        }
+        input[type="text"]:disabled, input[type="checkbox"]:disabled {
+            background-color: #f5f5f5;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+        @media print {
+            body { margin: 0; padding: 10mm; font-size: 10pt; }
+            .header { page-break-inside: avoid; }
+            .header .logo-left, .header .logo-right { height: 60px; }
+            .header .title { font-size: 10pt; }
+            h1 { display: none; }
+            h2 { font-size: 12pt; }
+            table, .status, .contact, .header-row, .export-button { page-break-inside: avoid; }
+            .export-button { display: none; }
+            @page { size: A4; margin-right: 20mm; margin-left: 15mm; }
+        }
     </style>
 </head>
 <body>
@@ -192,16 +308,21 @@
                 contactEmail: document.getElementById('contact-email').value
             };
 
+            document.getElementById('loading')?.classList.remove('hidden');
             fetch('YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             })
-            .then(() => alert('Données sauvegardées sur Google Drive !'))
+            .then(() => {
+                alert('Données sauvegardées sur Google Drive !');
+                document.getElementById('loading')?.classList.add('hidden');
+            })
             .catch(error => {
                 console.error('Erreur:', error);
                 alert('Erreur lors de la sauvegarde.');
+                document.getElementById('loading')?.classList.add('hidden');
             });
         }
 
@@ -214,6 +335,17 @@
             const checked = document.querySelector(`input[id^="${baseId}"]:checked`);
             return checked ? checked.value : '';
         }
+
+        // Ensure mutually exclusive checkboxes (e.g., Oui/Non, Quality)
+        ['electricity-paper', 'water-paper', 'sanitation-paper', 'electricity-quality', 'water-quality', 'sanitation-quality'].forEach(group => {
+            document.querySelectorAll(`input[id^="${group}"]`).forEach(cb => {
+                cb.addEventListener('change', () => {
+                    document.querySelectorAll(`input[id^="${group}"]`).forEach(other => {
+                        if (other !== cb) other.checked = false;
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>
